@@ -15,5 +15,5 @@ helm install <chart-name> charts/<chart-name>
 ```
 
 ## Available charts
-- [veloperator](https://github.com/techvelocity/helm-charts/tree/main/charts/veloperator) - Spin up fully isolated, ephemeral environments in seconds.  
+- [velocity-operator](https://github.com/techvelocity/helm-charts/tree/main/charts/velocity-operator) - Spin up fully isolated, ephemeral environments in seconds.  
   Develop code on your local machine and test it on a production-like environment.
