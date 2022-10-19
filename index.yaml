@@ -11,14 +11,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.1.0/velocity-operator-0.1.0.tgz
     version: 0.1.0
-  veloperator:
-  - apiVersion: v2
-    created: "2022-10-18T11:21:28.34885305Z"
-    description: A Helm chart for Veloperator.
-    digest: 533f9774d4bc3f9f5060fdf7f09d53863b236eb29c1b8d643c508f3f85beaea0
-    name: veloperator
-    type: application
-    urls:
-    - https://github.com/techvelocity/helm-charts/releases/download/veloperator-0.1.0/veloperator-0.1.0.tgz
-    version: 0.1.0
 generated: "2022-10-19T12:58:08.464227383Z"
