@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  velocity-operator:
+  - apiVersion: v2
+    created: "2022-10-19T12:58:08.464222283Z"
+    description: Spin up fully isolated, ephemeral environments in seconds. Develop
+      code on your local machine and test it on a production-like environment.
+    digest: f76939c0961ad4077dc8e970d1006df1a2742dd8c05c2d2ed63ebe36d40530bb
+    name: velocity-operator
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.1.0/velocity-operator-0.1.0.tgz
+    version: 0.1.0
   veloperator:
   - apiVersion: v2
     created: "2022-10-18T11:21:28.34885305Z"
@@ -10,4 +21,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/veloperator-0.1.0/veloperator-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-18T11:21:28.34885795Z"
+generated: "2022-10-19T12:58:08.464227383Z"
