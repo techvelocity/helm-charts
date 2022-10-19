@@ -1,31 +1,34 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "chart.fullname" . }}-manager-role
+  name: {{ include "chart.fullname" . }}-proxy-role
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 rules:
 - apiGroups:
-  - "" # core api group
-  - apps/v1
-  - networking.k8s.io/v1
-  resources: ["*"]
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
   verbs:
-  - get
-  - list
-  - watch
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "chart.fullname" . }}-manager-rolebinding
+  name: {{ include "chart.fullname" . }}-proxy-rolebinding
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: '{{ include "chart.fullname" . }}-manager-role'
+  name: '{{ include "chart.fullname" . }}-proxy-role'
 subjects:
 - kind: ServiceAccount
-  name: '{{ include "chart.fullname" . }}-controller-manager'
+  name: '{{ include "chart.fullname" . }}-manager'
   namespace: '{{ .Release.Namespace }}'
