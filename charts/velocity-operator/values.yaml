@@ -12,7 +12,7 @@ controllerManager:
         memory: 64Mi
   manager:
     image:
-      repository: gcr.io/techvelocity-dev/velocity-operator
+      repository: gcr.io/techvelocity-prod/velocity-operator
       tag: v0.0.2
     resources:
       limits:
