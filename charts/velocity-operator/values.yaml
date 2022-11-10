@@ -12,8 +12,8 @@ controllerManager:
         memory: 64Mi
   manager:
     image:
-      repository: gcr.io/techvelocity-prod/velocity-operator
-      tag: v0.0.2
+      repository: quay.io/velocity/velocity-operator
+      tag: v0.0.1
     resources:
       limits:
         cpu: 500m
