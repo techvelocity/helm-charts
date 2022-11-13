@@ -42,3 +42,50 @@ metricsService:
   type: ClusterIP
 secrets:
   authToken: replace-me
+
+aws:
+  region: &aws-region us-east-1
+  creds:
+    accessKey:
+    secretKey:
+
+    k8sSecretName: &k8s-secret-name aws-creds
+    k8sSecretKeyName: &k8s-secret-key-name credentials
+    profile: &aws-profile default
+
+tags:
+  cloud-resources: false # All cloud resources will be enabled if this is true
+
+s3-chart:
+  aws:
+    region: *aws-region
+    credentials:
+      secretName: *k8s-secret-name
+      secretKey: *k8s-secret-key-name
+      profile: *aws-profile
+
+dynamodb-chart:
+  aws:
+    region: *aws-region
+    credentials:
+      secretName: *k8s-secret-name
+      secretKey: *k8s-secret-key-name
+      profile: *aws-profile
+
+
+sqs-controller-chart:
+  fullnameOverride: sqs
+  aws:
+    region: *aws-region
+    credentials:
+      secretName: *k8s-secret-name
+      secretKey: *k8s-secret-key-name
+      profile: *aws-profile
+
+ack-sns-controller:
+  aws:
+    region: *aws-region
+    credentials:
+      secretName: *k8s-secret-name
+      secretKey: *k8s-secret-key-name
+      profile: *aws-profile
