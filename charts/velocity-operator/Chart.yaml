@@ -7,7 +7,7 @@ type: application
 version: 0.2.2
 
 # TODO: fill after package of dependencies is ready
-#dependencies:
+# dependencies:
 #  - name: s3-chart
 #    version: v0.1.5
 #    repository: "oci://quay.io/velocity"
