@@ -11,5 +11,5 @@ dependencies:
 - name: ack-sns-controller
   repository: oci://quay.io/velocity
   version: v0.0.3
-digest: sha256:887959bbd4da1c73315a0bc9f2390498c69fc08cb3af271d4510a33551a80149
-generated: "2022-11-09T09:46:51.869462+02:00"
+digest: sha256:9c02f7224534a43e00d72bbc5c68aad7c6a06d1e0b659a72e8b5870cb379ed67
+generated: "2022-11-14T15:17:51.876689+02:00"
