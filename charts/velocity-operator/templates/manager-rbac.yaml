@@ -14,6 +14,30 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+    - dynamodb.services.k8s.aws
+  resources:
+    - '*'
+  verbs:
+    - '*'
+- apiGroups:
+    - s3.services.k8s.aws
+  resources:
+    - '*'
+  verbs:
+    - '*'
+- apiGroups:
+    - sns.services.k8s.aws
+  resources:
+    - '*'
+  verbs:
+    - '*'
+- apiGroups:
+    - sqs.velocity.tech
+  resources:
+    - '*'
+  verbs:
+    - '*'
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
