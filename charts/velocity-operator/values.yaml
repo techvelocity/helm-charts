@@ -54,7 +54,7 @@ aws:
     profile: &aws-profile default
 
 tags:
-  cloudResources: false # All cloud resources will be enabled if this is true
+  cloudResources: false   # All cloud resources will be enabled if this is true
 
 s3-chart:
   aws:
