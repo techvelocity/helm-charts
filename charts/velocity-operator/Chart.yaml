@@ -19,14 +19,14 @@ dependencies:
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart # Velocity inhouse chart
+  - name: sqs-controller-chart    # Velocity inhouse chart
     repository: "oci://quay.io/velocity"
     version: 0.0.5
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources
   - name: ack-sns-controller
-    repository: "oci://quay.io/velocity" # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
+    repository: "oci://quay.io/velocity"    # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
     version: v0.0.3
     condition: cloudResources.sns.enabled
     tags:
