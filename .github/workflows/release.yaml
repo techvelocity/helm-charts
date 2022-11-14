@@ -24,6 +24,10 @@ jobs:
         with:
           version: v3.10.0
 
+      - name: Helm Deps
+        run: |
+          helm repo add charts https://helm-charts.velocity.tech
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.1
         env:

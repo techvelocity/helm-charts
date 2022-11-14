@@ -45,3 +45,4 @@ jobs:
 
       - name: Run chart-testing (install)
         run: ct install --chart-dirs charts/velocity-operator --charts charts/velocity-operator
+        if: steps.list-changed.outputs.changed == 'true'
