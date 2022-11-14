@@ -4,29 +4,29 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-version: 0.2.0
+version: 0.2.1
 
 dependencies:
   - name: s3-chart
     version: v0.1.5
-    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    repository: "oci://quay.io/velocity"
     condition: cloudResources.s3.enabled
     tags:
       - cloudResources
   - name: dynamodb-chart
     version: v0.1.7
-    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    repository: "oci://quay.io/velocity"
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart # Velocity inhouse chart
+  - name: sqs-controller-chart    # Velocity inhouse chart
     repository: "oci://quay.io/velocity"
     version: 0.0.5
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources
   - name: ack-sns-controller
-    repository: "oci://quay.io/velocity" # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
+    repository: "oci://quay.io/velocity"    # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
     version: v0.0.3
     condition: cloudResources.sns.enabled
     tags:
