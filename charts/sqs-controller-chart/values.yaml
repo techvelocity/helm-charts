@@ -1,0 +1,56 @@
+controllerManager:
+  kubeRbacProxy:
+    image:
+      repository: gcr.io/kubebuilder/kube-rbac-proxy
+      tag: v0.11.0
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 5m
+        memory: 64Mi
+  manager:
+    image:
+      repository: quay.io/velocity/sqs-controller
+      tag: v0.0.4
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+  replicas: 1
+managerConfig:
+  controllerManagerConfigYaml:
+    health:
+      healthProbeBindAddress: :8081
+    leaderElection:
+      leaderElect: true
+      resourceName: 64469c5a.velocity.tech
+    metrics:
+      bindAddress: 127.0.0.1:8080
+    webhook:
+      port: 9443
+metricsService:
+  ports:
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: https
+  type: ClusterIP
+rbac:
+  serviceAccount:
+    roleArn: replace-me
+
+aws:
+  # If specified, use the AWS region for AWS API calls
+  region: ""
+  credentials:
+    # If specified, Secret with shared credentials file to use.
+    secretName: ""
+    # Secret stringData key that contains the credentials
+    secretKey: "credentials"
+    # Profile used for AWS credentials
+    profile: "default"
