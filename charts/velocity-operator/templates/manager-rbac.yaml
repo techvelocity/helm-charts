@@ -14,7 +14,7 @@ rules:
   - get
   - list
   - watch
-{{- if .Values.tags.cloud-resources }}
+{{- if .Values.tags.cloudResources }}
 - apiGroups:
     - dynamodb.services.k8s.aws
   resources:
