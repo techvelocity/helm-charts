@@ -9,13 +9,13 @@ version: 0.2.0
 dependencies:
   - name: s3-chart
     version: v0.1.5
-    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    repository: "oci://quay.io/velocity"
     condition: cloudResources.s3.enabled
     tags:
       - cloudResources
   - name: dynamodb-chart
     version: v0.1.7
-    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    repository: "oci://quay.io/velocity"
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
