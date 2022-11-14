@@ -1,0 +1,15 @@
+dependencies:
+- name: s3-chart
+  repository: oci://public.ecr.aws/aws-controllers-k8s
+  version: v0.1.5
+- name: dynamodb-chart
+  repository: oci://public.ecr.aws/aws-controllers-k8s
+  version: v0.1.7
+- name: sqs-controller-chart
+  repository: oci://quay.io/velocity
+  version: 0.0.5
+- name: ack-sns-controller
+  repository: oci://quay.io/velocity
+  version: v0.0.3
+digest: sha256:887959bbd4da1c73315a0bc9f2390498c69fc08cb3af271d4510a33551a80149
+generated: "2022-11-09T09:46:51.869462+02:00"
