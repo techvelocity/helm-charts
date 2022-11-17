@@ -15,6 +15,7 @@ rules:
   - list
   - watch
   - create
+  - delete
 {{- if .Values.tags.cloudResources }}
 - apiGroups:
     - dynamodb.services.k8s.aws
