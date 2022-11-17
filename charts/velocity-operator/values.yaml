@@ -13,7 +13,7 @@ controllerManager:
   manager:
     image:
       repository: quay.io/velocity/velocity-operator
-      tag: v0.0.1
+      tag: v0.0.2
     resources:
       limits:
         cpu: 500m
