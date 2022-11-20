@@ -44,5 +44,5 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --chart-dirs charts/velocity-operator --charts charts/velocity-operator --helm-extra-set-args "--set controllerManager.manager.image.repository=gcr.io/cloudrun/hello --set controllerManager.manager.image.tag=latest"
+        run: ct install --chart-dirs charts/velocity-operator --charts charts/velocity-operator --helm-extra-set-args "--set controllerManager.manager.env.dryRun=true"
         if: steps.list-changed.outputs.changed == 'true'

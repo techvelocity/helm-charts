@@ -68,6 +68,8 @@ spec:
               secretKeyRef:
                 name: {{ include "chart.fullname" . }}-manager-secret
                 key: authToken
+          - name: DRY_RUN
+            value: {{ .Values.controllerManager.manager.env.dryRun }}
         readinessProbe:
           httpGet:
             path: /readyz
