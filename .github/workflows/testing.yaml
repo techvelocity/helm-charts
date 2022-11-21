@@ -44,5 +44,5 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --chart-dirs charts/velocity-operator --charts charts/velocity-operator -n velocity --create-namespace  --helm-extra-set-args "--set controllerManager.manager.env.dryRun=true"
+        run: ct install --chart-dirs charts/velocity-operator --charts charts/velocity-operator --helm-extra-set-args "--set controllerManager.manager.env.dryRun=true"
         if: steps.list-changed.outputs.changed == 'true'
