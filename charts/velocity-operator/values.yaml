@@ -11,9 +11,11 @@ controllerManager:
         cpu: 5m
         memory: 64Mi
   manager:
+    env:
+      dryRun: "false"
     image:
       repository: quay.io/velocity/velocity-operator
-      tag: v0.0.1
+      tag: v0.0.3
     resources:
       limits:
         cpu: 500m
