@@ -11,5 +11,5 @@ dependencies:
 - name: ack-sns-controller
   repository: https://helm-charts.velocity.tech
   version: v0.0.3
-digest: sha256:6a15c66144e2b38b98774153a338d673527ba6e69a6252e3d81138f4dec01171
-generated: "2022-11-24T15:29:10.96766+02:00"
+digest: sha256:421a0e3fecc2f4326c7a3bcff66c737703e2dbae6ea02f0191c3bb3f234fe669
+generated: "2022-11-24T16:27:35.51487+02:00"
