@@ -4,7 +4,7 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-version: 0.2.4
+version: 0.2.5
 
 dependencies:
   - name: s3-chart
