@@ -12,4 +12,4 @@ dependencies:
   repository: https://helm-charts.velocity.tech
   version: v0.0.3
 digest: sha256:421a0e3fecc2f4326c7a3bcff66c737703e2dbae6ea02f0191c3bb3f234fe669
-generated: "2022-11-14T17:25:36.588426+02:00"
+generated: "2022-11-24T16:27:35.51487+02:00"
