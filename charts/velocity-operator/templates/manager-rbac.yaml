@@ -9,7 +9,7 @@ rules:
   - "" # core api group
   - apps
   - extensions
-  - networking.k8s.io/v1
+  - networking.k8s.io
   resources: ["*"]
   verbs:
   - get
