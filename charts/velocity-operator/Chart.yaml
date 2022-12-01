@@ -6,8 +6,9 @@ description: |-
 type: application
 version: 0.2.7
 
-# IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crd` files
+# IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
+# The `fieldexports` and `adoptedresources` CRDs are defined under `templates/crds/aws`
 # We duplicate the CRDs internally because helm does not install CRDs if running with `helm upgrade`
 dependencies:
   - name: s3-chart
