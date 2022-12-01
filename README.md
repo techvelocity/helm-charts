@@ -8,6 +8,15 @@ helm repo update
 helm install <name> velocity/<chart> --version <version>
 ```
 
+## Upgrading dependencies
+Dependency changes are done in `Chart.yaml`.    
+After your change, run `helm dependency update` to update the `requirements.lock` file.     
+In case you update AWS ACK controller, You will also need to do the following:
+1. Open the downloaded chart inside the `charts` folder
+2. Compare the CRDs located in `crds` folder inside the chart, to the `templates/crds` folder in our chart - make sure there aren't any API breaking changes (for example, a new CRD API version)
+3. Copy and overwrite the CRDs located in `crds` folder inside the chart, to the `templates/crds` folder in our chart.
+4. Make sure to keep the "if cloud resources" condition if exists
+
 ## Contribution
 ### Uploading new chart version
 There's already a CD flow configured for the repository.  

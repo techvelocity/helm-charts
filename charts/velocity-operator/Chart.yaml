@@ -10,6 +10,7 @@ version: 0.2.7
 # according to the new version CRDs.
 # The `fieldexports` and `adoptedresources` CRDs are defined under `templates/crds/aws`
 # We duplicate the CRDs internally because helm does not install CRDs if running with `helm upgrade`
+# Please see `README.md` for more details.
 dependencies:
   - name: s3-chart
     version: v0.1.5
