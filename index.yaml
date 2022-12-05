@@ -70,6 +70,16 @@ entries:
     version: v0.1.5
   sqs-controller-chart:
   - apiVersion: v2
+    appVersion: 0.0.6
+    created: "2022-12-05T09:42:38.01542771Z"
+    description: A Helm chart for Kubernetes
+    digest: 46a43b9f5936630ecf42e998baea430738bc3d36c5e2cbf62856649184ef8748
+    name: sqs-controller-chart
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/sqs-controller-chart-0.0.6/sqs-controller-chart-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     appVersion: 0.0.5
     created: "2022-11-14T15:23:32.416895575Z"
     description: A Helm chart for Kubernetes
@@ -355,4 +365,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.1.0/velocity-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-05T05:11:23.427820715Z"
+generated: "2022-12-05T09:42:38.01545401Z"
