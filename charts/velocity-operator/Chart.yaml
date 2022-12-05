@@ -4,7 +4,7 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-version: 0.2.9
+version: 0.2.10
 
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
@@ -26,7 +26,7 @@ dependencies:
       - cloudResources
   - name: sqs-controller-chart    # Velocity inhouse chart
     repository: "https://helm-charts.velocity.tech"
-    version: 0.0.5
+    version: 0.0.6
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources
