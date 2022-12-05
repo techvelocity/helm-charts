@@ -7,9 +7,9 @@ dependencies:
   version: v0.1.7
 - name: sqs-controller-chart
   repository: https://helm-charts.velocity.tech
-  version: 0.0.5
+  version: 0.0.6
 - name: ack-sns-controller
   repository: https://helm-charts.velocity.tech
   version: v0.0.3
-digest: sha256:421a0e3fecc2f4326c7a3bcff66c737703e2dbae6ea02f0191c3bb3f234fe669
-generated: "2022-11-24T16:27:35.51487+02:00"
+digest: sha256:b71733706139e7d27986d469205083e6d8862915362bad39904313678780dfac
+generated: "2022-12-05T11:44:21.361713+02:00"
