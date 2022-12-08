@@ -18,6 +18,7 @@ rules:
   - watch
   - create
   - patch
+  - update
   - delete
 {{- if .Values.tags.cloudResources }}
 - apiGroups:
