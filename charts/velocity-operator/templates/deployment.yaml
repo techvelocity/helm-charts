@@ -70,6 +70,8 @@ spec:
                 key: authToken
           - name: DRY_RUN
             value: {{ quote .Values.controllerManager.manager.env.dryRun }}
+          - name: CLOUD_RESOURCES_ENABLED
+            value: {{ quote .Values.tags.cloudResources }}
         readinessProbe:
           httpGet:
             path: /readyz
