@@ -80,8 +80,7 @@ spec:
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10
-          }}
+        resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10 }}
         {{- if .Values.tags.cloudResources }}
         volumeMounts:
           - name: {{ .Values.aws.credentials.secretName }}
@@ -104,4 +103,3 @@ spec:
           secret:
             secretName: {{ .Values.aws.credentials.secretName }}
       {{- end }}
-      { { end - } }
