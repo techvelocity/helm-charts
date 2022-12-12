@@ -82,6 +82,12 @@ spec:
           periodSeconds: 10
         resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10
           }}
+        {{- if .Values.tags.cloudResources }}
+        volumeMounts:
+          - name: { { .Values.aws.credentials.secretName } }
+            mountPath: { { include "aws.credentials.secret_mount_path" . } }
+            readOnly: true
+        {{ - end }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -92,3 +98,10 @@ spec:
         runAsUser: 65532
       serviceAccountName: {{ include "chart.fullname" . }}-manager
       terminationGracePeriodSeconds: 10
+      {{- if .Values.tags.cloudResources }}
+      volumes:
+        - name: { { .Values.aws.credentials.secretName } }
+          secret:
+            secretName: { { .Values.aws.credentials.secretName } }
+      {{ - end }}
+      { { end - } }
