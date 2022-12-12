@@ -55,3 +55,9 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/* The path the shared credentials file is mounted */}}
+{{- define "aws.credentials.path" -}}
+{{- printf "%s/%s" (include "aws.credentials.secret_mount_path" .) "credentials" -}}
+{{- end -}}
