@@ -87,7 +87,7 @@ spec:
         resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10 }}
         {{- if .Values.tags.cloudResources }}
         volumeMounts:
-          - name: {{ .Values.aws.credentials.secretName }}
+          - name: {{ .Values.aws.k8sSecretName }}
             mountPath: {{ include "aws.credentials.secret_mount_path" . }}
             readOnly: true
         {{- end }}
@@ -103,7 +103,7 @@ spec:
       terminationGracePeriodSeconds: 10
       {{- if .Values.tags.cloudResources }}
       volumes:
-        - name: {{ .Values.aws.credentials.secretName }}
+        - name: {{ .Values.aws.k8sSecretName }}
           secret:
-            secretName: {{ .Values.aws.credentials.secretName }}
+            secretName: {{ .Values.aws.k8sSecretName }}
       {{- end }}
