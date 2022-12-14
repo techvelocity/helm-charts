@@ -63,14 +63,27 @@ spec:
                 key: authToken
           - name: DRY_RUN
             value: {{ quote .Values.controllerManager.manager.env.dryRun }}
+          - name: CLOUD_RESOURCES_ENABLED
+            value: {{ quote .Values.tags.cloudResources }}
+          - name: AWS_REGION
+            value: {{ .Values.aws.region }}
+          {{- if .Values.tags.cloudResources }}
+          - name: AWS_SHARED_CREDENTIALS_FILE
+            value: {{ include "aws.credentials.path" . }}
+          {{- end }}
         readinessProbe:
           httpGet:
             path: /readyz
             port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
-        resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10
-          }}
+        resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10 }}
+        {{- if .Values.tags.cloudResources }}
+        volumeMounts:
+          - name: {{ .Values.aws.creds.k8sSecretName }}
+            mountPath: {{ include "aws.credentials.secret_mount_path" . }}
+            readOnly: true
+        {{- end }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -81,3 +94,9 @@ spec:
         runAsUser: 65532
       serviceAccountName: {{ include "chart.fullname" . }}-manager
       terminationGracePeriodSeconds: 10
+      {{- if .Values.tags.cloudResources }}
+      volumes:
+        - name: {{ .Values.aws.creds.k8sSecretName }}
+          secret:
+            secretName: {{ .Values.aws.creds.k8sSecretName }}
+      {{- end }}
