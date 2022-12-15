@@ -4,11 +4,8 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-<<<<<<< HEAD
 version: 0.2.18
-=======
-version: 0.2.17
->>>>>>> main
+
 
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
