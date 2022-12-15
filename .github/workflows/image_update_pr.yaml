@@ -1,7 +1,4 @@
 name: image upgrade PR
-#on:
-#  issues:
-#    types: [opened]
 on:
   workflow_dispatch:
     inputs:
@@ -17,16 +14,16 @@ jobs:
         with:
           fetch-depth: '0'  # this is important for the git writeback
 
-      - name: View issue information
-        id: vars
-        run: |
-         echo "Issue title: ${{ github.event.issue.title }}"
-         echo "Issue body: ${{ github.event.issue.body }}"
-         # upgrade operator image to v
-          ISSUE_TITLE=$(echo  ${{ github.event.issue.title }})
-          IMAGE_TAG=${ISSUE_TITLE##upgrade operator image to}
-          echo "Image tag: $IMAGE_TAG
-          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
+#      - name: View issue information
+#        id: vars
+#        run: |
+#         echo "Issue title: ${{ github.event.issue.title }}"
+#         echo "Issue body: ${{ github.event.issue.body }}"
+#         # upgrade operator image to v
+#          ISSUE_TITLE=$(echo  ${{ github.event.issue.title }})
+#          IMAGE_TAG=${{ inputs.image_tag }}
+#          echo "Image tag: $IMAGE_TAG
+#          echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
 
       - name: Update Helm Chart Values
         uses: Nextdoor/helm-set-image-tag-action@main
@@ -51,7 +48,7 @@ jobs:
           # docker image tag is `release-v1.2.3`, then you would set this to
           # `release-${{ github.ref }}`
           #
-          tag_value: ${{ steps.vars.outputs.image_tag }}
+          tag_value: ${{ inputs.image_tag }}
 
           # This is the sem-ver level that will be bumped for each release.
           # `major`, `minor`, `path` or `null` are allowed. If you set `null` then
@@ -69,7 +66,7 @@ jobs:
           # will need to introduce your own code to create a branch or tag that
           # points to this commit.
           #
-          commit_branch: fix/ENV-4405-upgrade-operator-image-to-${{ steps.vars.outputs.image_tag }}
+          commit_branch: fix/ENV-4405-upgrade-operator-image-to-${{ inputs.image_tag }}
 
           # Instead of (or in addition to) putting the newly created release
           # commit on the $commit_branch, you can also create a tag that points to
@@ -101,7 +98,7 @@ jobs:
           #
           verbose: true
 
-          # Optionally run the action in 'dry' mode - where all of the normal
+          # Optionally run the action in 'dry' mode - where all the normal
           # actions happen, but no `git commit` happens. Useful for initial testing
           # of the configuration. Set to `true` or `false`.
           #
