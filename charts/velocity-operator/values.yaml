@@ -15,7 +15,7 @@ controllerManager:
       dryRun: false
     image:
       repository: quay.io/velocity/velocity-operator
-      tag: v0.0.7
+      tag: v0.0.20
     resources:
       limits:
         cpu: 500m
@@ -37,27 +37,23 @@ managerConfig:
       port: 9443
 metricsService:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
   type: ClusterIP
 secrets:
   authToken: replace-me
-
 aws:
   region: &aws-region us-east-1
   creds:
     accessKey:
     secretKey:
-
     k8sSecretName: &k8s-secret-name aws-creds
     k8sSecretKeyName: &k8s-secret-key-name credentials
     profile: &aws-profile default
-
 tags:
-  cloudResources: false   # All cloud resources will be enabled if this is true
-
+  cloudResources: false # All cloud resources will be enabled if this is true
 s3-chart:
   aws:
     region: *aws-region
@@ -65,7 +61,6 @@ s3-chart:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
       profile: *aws-profile
-
 dynamodb-chart:
   aws:
     region: *aws-region
@@ -73,8 +68,6 @@ dynamodb-chart:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
       profile: *aws-profile
-
-
 sqs-controller-chart:
   fullnameOverride: sqs
   aws:
@@ -83,7 +76,6 @@ sqs-controller-chart:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
       profile: *aws-profile
-
 ack-sns-controller:
   aws:
     region: *aws-region
