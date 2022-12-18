@@ -5,7 +5,7 @@ description: |-
   Develop code on your local machine and test it on a production-like environment.
 type: application
 version: 0.2.17
-
+appVersion: v0.0.7
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
 # The `fieldexports` and `adoptedresources` CRDs are defined under `templates/crds/aws`
@@ -24,14 +24,14 @@ dependencies:
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart    # Velocity inhouse chart
+  - name: sqs-controller-chart # Velocity inhouse chart
     repository: "https://helm-charts.velocity.tech"
     version: 0.0.6
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources
   - name: ack-sns-controller
-    repository: "https://helm-charts.velocity.tech"    # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
+    repository: "https://helm-charts.velocity.tech" # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
     version: v0.0.3
     condition: cloudResources.sns.enabled
     tags:
