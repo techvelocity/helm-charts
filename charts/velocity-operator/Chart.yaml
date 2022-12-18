@@ -24,14 +24,16 @@ dependencies:
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart # Velocity inhouse chart
+  - name: sqs-controller-chart
+    # Velocity inhouse chart
     repository: "https://helm-charts.velocity.tech"
     version: 0.0.6
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources
   - name: ack-sns-controller
-    repository: "https://helm-charts.velocity.tech" # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
+    # We don't pull the official because https://github.com/aws-controllers-k8s/community/issues/1535
+    repository: "https://helm-charts.velocity.tech"
     version: v0.0.3
     condition: cloudResources.sns.enabled
     tags:
