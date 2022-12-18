@@ -13,9 +13,10 @@ controllerManager:
   manager:
     env:
       dryRun: false
+    saImagePullSecrets: []
     image:
       repository: quay.io/velocity/velocity-operator
-      tag: v0.0.7
+#     tag: v0.0.7 use appVersion by default
     resources:
       limits:
         cpu: 500m
