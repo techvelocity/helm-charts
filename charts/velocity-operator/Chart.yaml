@@ -5,7 +5,7 @@ description: |-
   Develop code on your local machine and test it on a production-like environment.
 type: application
 version: 0.2.18
-appVersion: v0.0.7
+appVersion: v1.1.0
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
 # The `fieldexports` and `adoptedresources` CRDs are defined under `templates/crds/aws`
