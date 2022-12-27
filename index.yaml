@@ -91,6 +91,42 @@ entries:
     version: 0.0.5
   velocity-operator:
   - apiVersion: v2
+    appVersion: v1.1.4
+    created: "2022-12-27T12:54:35.145040079Z"
+    dependencies:
+    - condition: cloudResources.s3.enabled
+      name: s3-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.1.5
+    - condition: cloudResources.dynamodb.enabled
+      name: dynamodb-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.1.7
+    - condition: cloudResources.sqs.enabled
+      name: sqs-controller-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: 0.0.6
+    - condition: cloudResources.sns.enabled
+      name: ack-sns-controller
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.0.3
+    description: Spin up fully isolated, ephemeral environments in seconds. Develop
+      code on your local machine and test it on a production-like environment.
+    digest: 3b5a8d0853c1132e67f1393b8e02eca06a684b18146a0b2e80a3014db5d6b2dd
+    name: velocity-operator
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.2.21/velocity-operator-0.2.21.tgz
+    version: 0.2.21
+  - apiVersion: v2
     appVersion: v1.1.2
     created: "2022-12-25T14:03:13.125675203Z"
     dependencies:
@@ -752,4 +788,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.1.0/velocity-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-25T14:03:13.125800665Z"
+generated: "2022-12-27T12:54:35.145170479Z"
