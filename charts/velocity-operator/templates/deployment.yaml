@@ -70,6 +70,10 @@ spec:
           - name: AWS_SHARED_CREDENTIALS_FILE
             value: {{ include "aws.credentials.path" . }}
           {{- end }}
+          {{- if ((.Values.velocity).apiUrl) }}
+          - name: VELOCITY_API_URL
+            value: {{ quote .Values.velocity.apiUrl }}
+          {{- end }}
         readinessProbe:
           httpGet:
             path: /readyz

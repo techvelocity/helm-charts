@@ -56,6 +56,9 @@ aws:
     k8sSecretKeyName: &k8s-secret-key-name credentials
     profile: &aws-profile default
 
+velocity:
+  apiUrl: ""
+
 tags:
   cloudResources: false   # All cloud resources will be enabled if this is true
 
