@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+data:
+  htpasswd: {{ randAlphaNum 8 | b64enc }}
+metadata:
+  name: {{ .Values.secrets.registryAuthName }}
+type: Opaque

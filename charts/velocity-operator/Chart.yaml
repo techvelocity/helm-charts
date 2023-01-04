@@ -4,7 +4,7 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-version: 0.2.24
+version: 0.2.25
 appVersion: v1.1.5
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
@@ -38,3 +38,7 @@ dependencies:
     condition: cloudResources.sns.enabled
     tags:
       - cloudResources
+  - name: velocity-registry
+    repository: "https://helm-charts.velocity.tech"
+    version: 0.0.1
+    condition: registry.enabled
