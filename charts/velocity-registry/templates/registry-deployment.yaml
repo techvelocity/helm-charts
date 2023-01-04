@@ -29,7 +29,7 @@ spec:
         ports:
         - containerPort: {{ .Values.registryContainerPort }}
           protocol: TCP
-        resources: {{- toYaml .Values.RegistryResources | nindent 10 }}
+        resources: {{- toYaml .Values.registryResources | nindent 10 }}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:

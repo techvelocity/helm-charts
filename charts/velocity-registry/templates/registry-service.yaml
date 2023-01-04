@@ -3,10 +3,6 @@ kind: Service
 metadata:
   name: {{ include "chart.name" . }}
 spec:
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
   - name: {{ .Values.registryServicePort }}-tcp
     port: {{ .Values.registryServicePort }}

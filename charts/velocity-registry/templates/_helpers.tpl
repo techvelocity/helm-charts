@@ -21,7 +21,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{- define "utils.dockerjson" }}
-{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}"
-.Values.url (printf "%s:%s" .Values.secrets.DefaultUsername
-.Values.secrets.DefaultPassword | b64enc) | b64enc }}
+{{- printf "{\"auths\": {\"%s.%s\": {\"auth\": \"%s\"}}}"
+.Values.url.prefix .Values.url.domain (printf "%s:%s" .Values.secrets.defaultUsername
+.Values.secrets.defaultPassword | b64enc) | b64enc }}
 {{- end }}

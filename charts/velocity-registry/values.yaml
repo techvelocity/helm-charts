@@ -19,7 +19,7 @@ env:
 registryContainerPort: 5000
 registryServicePort: 5000
 
-RegistryResources:
+registryResources:
   limits:
     cpu: "1"
     memory: 1Gi
@@ -30,10 +30,14 @@ RegistryResources:
 secrets:
   registryAuthName: registry-auth
   registryConfigName: registry-docker-config
-  DefaultUsername: root
-  DefaultPassword: asdf1234!@#$
+  defaultUsername: root
+  defaultPassword: ""  # must be set on installation
 
 volume:
   pvcName: velocity-registry-pvc
   storage: 10Gi
   storageClass: ebs-sc
+
+url:
+  prefix: registry-velocity
+  domain: "" # must be set on installation
