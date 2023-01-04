@@ -74,8 +74,6 @@ spec:
           - name: VELOCITY_API_URL
             value: {{ quote .Values.velocity.apiUrl }}
           {{- end }}
-          - name: REGISTRY_ENABLED
-            value: {{ quote .Values.registry.enabled }}
         readinessProbe:
           httpGet:
             path: /readyz

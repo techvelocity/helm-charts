@@ -62,9 +62,6 @@ velocity:
 tags:
   cloudResources: false   # All cloud resources will be enabled if this is true
 
-registry:
-  enabled: false # registry will be enabled if this is true
-
 s3-chart:
   aws:
     region: *aws-region
