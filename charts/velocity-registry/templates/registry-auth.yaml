@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 data:
-  htpasswd: {{ required "A valid password is required" .Values.secrets.defaultPassword | b64enc }}
+  htpasswd: {{ (htpasswd .Values.secrets.defaultUsername .Values.secrets.defaultPassword) | b64enc  }}
 metadata:
   name: {{ .Values.secrets.registryAuthName }}
 type: Opaque
