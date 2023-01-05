@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: {{ include "chart.name" . }}
 spec:
+  selector:
+    name: {{ include "chart.name" . }}
   ports:
   - name: {{ .Values.registryServicePort }}-tcp
     port: {{ .Values.registryServicePort }}
