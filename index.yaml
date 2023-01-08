@@ -932,4 +932,15 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.1.0/velocity-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-04T14:28:34.985142101Z"
+  velocity-registry:
+  - apiVersion: v2
+    created: "2023-01-08T10:35:44.060997555Z"
+    description: This chart Installs an image registry. Used to hold images that are
+      required to work with velocity "env sync" feature.
+    digest: 875832067cd03cd9ae62e022310a5adf08a49bcaa99b5123e6551d90f82598b9
+    name: velocity-registry
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/velocity-registry-0.1.0/velocity-registry-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-01-08T10:35:44.061375061Z"
