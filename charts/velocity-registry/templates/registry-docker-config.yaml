@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 data:
-  .dockerconfigjson: {{ include "utils.dockerjson" . }}
+  .dockerconfigjson: {{ printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" (include "utils.urlAuthBuilder" . ) (include "utils.credendtialsAuthBuild" . ) | b64enc }}
 metadata:
   name: {{ .Values.secrets.registryConfigName }}
 type: kubernetes.io/dockerconfigjson

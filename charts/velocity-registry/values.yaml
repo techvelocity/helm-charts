@@ -6,13 +6,13 @@ image:
   pullPolicy: IfNotPresent
 
 env:
-  RegistryAuth:
+  registryAuth:
     name: REGISTRY_AUTH
     value: htpasswd
-  RegistryAuthRealm:
+  registryAuthRealm:
     name: REGISTRY_AUTH_HTPASSWD_REALM
     value: Registry Realm
-  RegistryAuthPath:
+  registryAuthPath:
     name: REGISTRY_AUTH_HTPASSWD_PATH
     value: /auth/htpasswd
 

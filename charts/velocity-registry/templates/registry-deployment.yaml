@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
       - env:
-        - name: {{ .Values.env.RegistryAuth.name }}
-          value: {{ .Values.env.RegistryAuth.value | quote }}
-        - name: {{ .Values.env.RegistryAuthRealm.name }}
-          value: {{ .Values.env.RegistryAuthRealm.value | quote }}
-        - name: {{ .Values.env.RegistryAuthPath.name }}
-          value: {{ .Values.env.RegistryAuthPath.value | quote }}
+        - name: {{ .Values.env.registryAuth.name }}
+          value: {{ .Values.env.registryAuth.value | quote }}
+        - name: {{ .Values.env.registryAuthRealm.name }}
+          value: {{ .Values.env.registryAuthRealm.value | quote }}
+        - name: {{ .Values.env.registryAuthPath.name }}
+          value: {{ .Values.env.registryAuthPath.value | quote }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name:  {{ include "chart.name" . }}

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: velocity-registry
 description: |-  
-  installs an image registry
+  This chart Installs an image registry. Used to hold images that are required to work with velocity "env sync" feature.
 type: application
-version: 0.0.1
+version: 0.1.0
