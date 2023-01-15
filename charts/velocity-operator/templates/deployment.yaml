@@ -62,6 +62,8 @@ spec:
                 key: authToken
           - name: DRY_RUN
             value: {{ quote .Values.controllerManager.manager.env.dryRun }}
+          - name: CHART_VERSION
+            value: {{ quote .Chart.Version }}
           - name: CLOUD_RESOURCES_ENABLED
             value: {{ quote .Values.tags.cloudResources }}
           - name: AWS_REGION
