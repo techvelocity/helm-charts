@@ -91,6 +91,42 @@ entries:
     version: 0.0.5
   velocity-operator:
   - apiVersion: v2
+    appVersion: v1.5.3
+    created: "2023-01-18T13:08:34.286546121Z"
+    dependencies:
+    - condition: cloudResources.s3.enabled
+      name: s3-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.1.5
+    - condition: cloudResources.dynamodb.enabled
+      name: dynamodb-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.1.7
+    - condition: cloudResources.sqs.enabled
+      name: sqs-controller-chart
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: 0.0.6
+    - condition: cloudResources.sns.enabled
+      name: ack-sns-controller
+      repository: https://helm-charts.velocity.tech
+      tags:
+      - cloudResources
+      version: v0.0.3
+    description: Spin up fully isolated, ephemeral environments in seconds. Develop
+      code on your local machine and test it on a production-like environment.
+    digest: 23cf4c87e90c229e02f936dff414577e47dd27136b52d63db641226df455878e
+    name: velocity-operator
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/velocity-operator-0.2.29/velocity-operator-0.2.29.tgz
+    version: 0.2.29
+  - apiVersion: v2
     appVersion: v1.5.2
     created: "2023-01-15T17:22:05.482475297Z"
     dependencies:
@@ -1042,6 +1078,16 @@ entries:
     version: 0.1.0
   velocity-registry:
   - apiVersion: v2
+    created: "2023-01-18T13:08:34.449984299Z"
+    description: This chart Installs an image registry. Used to hold images that are
+      required to work with velocity "env sync" feature.
+    digest: afad96a9f5b7af5a1c24be7a1c4218e16b6f307c67b4ac661aab1ba3bb077f22
+    name: velocity-registry
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/velocity-registry-0.1.1/velocity-registry-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2023-01-08T10:35:44.060997555Z"
     description: This chart Installs an image registry. Used to hold images that are
       required to work with velocity "env sync" feature.
@@ -1051,4 +1097,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-registry-0.1.0/velocity-registry-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-15T17:22:05.482796313Z"
+generated: "2023-01-18T13:08:34.450197797Z"
