@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Secret
-data:
-  htpasswd: {{ (htpasswd .Values.secrets.defaultUsername (required "Default password must be set" .Values.secrets.defaultPassword)) | b64enc  }}
-metadata:
-  name: {{ .Values.secrets.registryAuthName }}
-type: Opaque

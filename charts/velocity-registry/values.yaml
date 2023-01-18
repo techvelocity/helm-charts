@@ -28,16 +28,9 @@ registryResources:
     memory: 250Mi
 
 secrets:
-  registryAuthName: registry-auth
-  registryConfigName: registry-docker-config
-  defaultUsername: root
-  defaultPassword: ""  # must be set on installation
+  registryAuthName: registry-auth # secret by that name should be created by velocity-operator on startup
 
 volume:
   pvcName: velocity-registry-pvc
   storage: 10Gi
   storageClass: ebs-sc
-
-url:
-  prefix: registry-velocity
-  domain: "" # must be set on installation

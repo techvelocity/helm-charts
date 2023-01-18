@@ -19,11 +19,3 @@ helm.sh/chart: {{ include "chart.chart" . }}
 app.kubernetes.io/name: {{ include "chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
-
-{{- define "utils.urlAuthBuilder" -}}
-{{- printf "%s.%s" .Values.url.prefix (required "Default domain must be set" .Values.url.domain) }}
-{{- end -}}
-
-{{- define "utils.credendtialsAuthBuild" -}}
-{{- printf "%s:%s" .Values.secrets.defaultUsername .Values.secrets.defaultPassword | b64enc }}
-{{- end -}}
