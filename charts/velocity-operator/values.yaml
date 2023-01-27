@@ -47,11 +47,12 @@ secrets:
   authToken: replace-me
 
 aws:
-  region: &aws-region us-east-1
+  region:
   creds:
     accessKey:
     secretKey:
 
+    # Note that anchor values are resolved ONCE and will not be updated on 'helm upgrade'
     k8sSecretName: &k8s-secret-name aws-creds
     k8sSecretKeyName: &k8s-secret-key-name credentials
     profile: &aws-profile default
@@ -64,7 +65,7 @@ tags:
 
 s3-chart:
   aws:
-    region: *aws-region
+    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
     credentials:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
@@ -72,7 +73,7 @@ s3-chart:
 
 dynamodb-chart:
   aws:
-    region: *aws-region
+    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
     credentials:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
@@ -80,9 +81,8 @@ dynamodb-chart:
 
 
 sqs-controller-chart:
-  fullnameOverride: sqs
   aws:
-    region: *aws-region
+    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
     credentials:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name
@@ -90,7 +90,7 @@ sqs-controller-chart:
 
 ack-sns-controller:
   aws:
-    region: *aws-region
+    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
     credentials:
       secretName: *k8s-secret-name
       secretKey: *k8s-secret-key-name

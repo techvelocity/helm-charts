@@ -41,7 +41,7 @@ rules:
   verbs:
     - '*'
 - apiGroups:
-    - sqs.velocity.tech
+    - sqs.services.k8s.aws
   resources:
     - '*'
   verbs:
