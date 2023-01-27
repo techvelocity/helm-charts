@@ -1,92 +1,116 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: {{ include "chart.fullname" . }}-controller-manager
-  labels:
-  {{- include "chart.labels" . | nindent 4 }}
-  annotations:
-    eks.amazonaws.com/role-arn: '{{ .Values.rbac.serviceAccount.roleArn }}'
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chart.fullname" . }}-controller-manager
+  name: {{ include "app.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    control-plane: controller-manager
-  {{- include "chart.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "app.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+    k8s-app: {{ include "app.name" . }}
+    helm.sh/chart: {{ include "chart.name-version" . }}
+    control-plane: controller
 spec:
-  replicas: {{ .Values.controllerManager.replicas }}
+  replicas: 1
   selector:
     matchLabels:
-      control-plane: controller-manager
-    {{- include "chart.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/name: {{ include "app.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
-      labels:
-        control-plane: controller-manager
-      {{- include "chart.selectorLabels" . | nindent 8 }}
       annotations:
-        kubectl.kubernetes.io/default-container: manager
+      {{- range $key, $value := .Values.deployment.annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "app.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: Helm
+        k8s-app: {{ include "app.name" . }}
+{{- range $key, $value := .Values.deployment.labels }}
+        {{ $key }}: {{ $value | quote }}
+{{- end }}
     spec:
+      serviceAccountName: {{ include "service-account.name" . }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+      {{- end }}
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: {{ .Values.controllerManager.kubeRbacProxy.image.repository }}:{{ .Values.controllerManager.kubeRbacProxy.image.tag
-          | default .Chart.AppVersion }}
-        name: kube-rbac-proxy
+      - command:
+        - ./bin/controller
+        args:
+        - --aws-region
+        - "$(AWS_REGION)"
+        - --aws-endpoint-url
+        - "$(AWS_ENDPOINT_URL)"
+        - --enable-development-logging
+        - "$(ACK_ENABLE_DEVELOPMENT_LOGGING)"
+        - --log-level
+        - "$(ACK_LOG_LEVEL)"
+        - --resource-tags
+        - "$(ACK_RESOURCE_TAGS)"
+        - --watch-namespace
+        - "$(ACK_WATCH_NAMESPACE)"
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: controller
         ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources: {{- toYaml .Values.controllerManager.kubeRbacProxy.resources | nindent
-          10 }}
-      - args:
-        - --health-probe-bind-address=:8081
-        - --metrics-bind-address=127.0.0.1:8080
-        - --leader-elect
-        command:
-        - /manager
-        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag
-          | default .Chart.AppVersion }}
+          - name: http
+            containerPort: {{ .Values.deployment.containerPort }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
         env:
-          {{- if .Values.aws.region }}
-          - name: AWS_REGION
-            value: {{ .Values.aws.region }}
-          {{- end }}
-          {{- if .Values.aws.credentials.secretName }}
-          - name: AWS_SHARED_CREDENTIALS_FILE
-            value: {{ include "aws.credentials.path" . }}
-          - name: AWS_PROFILE
-            value: {{ .Values.aws.credentials.profile }}
+        - name: ACK_SYSTEM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: AWS_REGION
+          value: {{ .Values.aws.region }}
+        - name: AWS_ENDPOINT_URL
+          value: {{ .Values.aws.endpoint_url | quote }}
+        - name: ACK_WATCH_NAMESPACE
+          value: {{ include "watch-namespace" . }}
+        - name: ACK_ENABLE_DEVELOPMENT_LOGGING
+          value: {{ .Values.log.enable_development_logging | quote }}
+        - name: ACK_LOG_LEVEL
+          value: {{ .Values.log.level | quote }}
+        - name: ACK_RESOURCE_TAGS
+          value: {{ join "," .Values.resourceTags | quote }}
+        {{- if .Values.aws.credentials.secretName }}
+        - name: AWS_SHARED_CREDENTIALS_FILE
+          value: {{ include "aws.credentials.path" . }}
+        - name: AWS_PROFILE
+          value: {{ .Values.aws.credentials.profile }}
         volumeMounts:
           - name: {{ .Values.aws.credentials.secretName }}
             mountPath: {{ include "aws.credentials.secret_mount_path" . }}
             readOnly: true
-          {{- end }}
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8081
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        name: manager
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        resources: {{- toYaml .Values.controllerManager.manager.resources | nindent 10
-          }}
+        {{- end }}
         securityContext:
           allowPrivilegeEscalation: false
-      securityContext:
-        runAsNonRoot: true
-      serviceAccountName: {{ include "chart.fullname" . }}-controller-manager
+          privileged: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
       terminationGracePeriodSeconds: 10
+      nodeSelector: {{ toYaml .Values.deployment.nodeSelector | nindent 8 }}
+      {{ if .Values.deployment.tolerations -}}
+      tolerations: {{ toYaml .Values.deployment.tolerations | nindent 8 }}
+      {{ end -}}
+      {{ if .Values.deployment.affinity -}}
+      affinity: {{ toYaml .Values.deployment.affinity | nindent 8 }}
+      {{ end -}}
+      {{ if .Values.deployment.priorityClassName -}}
+      priorityClassName: {{ .Values.deployment.priorityClassName }}
+      {{ end -}}
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
       {{ if .Values.aws.credentials.secretName -}}
       volumes:
         - name: {{ .Values.aws.credentials.secretName }}
