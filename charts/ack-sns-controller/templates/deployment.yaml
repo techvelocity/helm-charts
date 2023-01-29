@@ -57,7 +57,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: AWS_REGION
-          value: {{ required "A valid aws-region required!" .Values.aws.region }}
+          value: {{ .Values.aws.region }}
         - name: AWS_ENDPOINT_URL
           value: {{ .Values.aws.endpoint_url | quote }}
         {{- if .Values.aws.credentials.secretName }}
