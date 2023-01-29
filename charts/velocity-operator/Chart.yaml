@@ -24,7 +24,7 @@ dependencies:
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart
+  - name: sqs-chart
     repository: "https://helm-charts.velocity.tech"
     version: 0.0.1
     condition: cloudResources.sqs.enabled

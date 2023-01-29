@@ -79,7 +79,7 @@ dynamodb-chart:
       profile: default
 
 
-sqs-controller-chart:
+sqs-chart:
   aws:
     region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
     credentials:
