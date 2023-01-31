@@ -3,7 +3,7 @@
 ## How to use this repo
 - Add this repo to your helm repos:
 ```bash
-helm repo add charts https://helm-charts.velocity.tech
+helm repo add velocity https://helm-charts.velocity.tech
 ```
 - Update the helm repository listing:
 ```bash
@@ -11,7 +11,7 @@ helm repo update
 ```
 - Install the chart:
 ```bash
-helm install <chart-name> charts/<chart-name>
+helm install <chart-name> velocity/<chart-name>
 ```
 
 ## Available charts
