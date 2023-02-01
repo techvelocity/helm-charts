@@ -5,11 +5,11 @@ dependencies:
 - name: dynamodb-chart
   repository: https://helm-charts.velocity.tech
   version: v0.1.7
-- name: sqs-controller-chart
+- name: sqs-chart
   repository: https://helm-charts.velocity.tech
-  version: 0.0.6
+  version: v0.0.1
 - name: ack-sns-controller
   repository: https://helm-charts.velocity.tech
   version: v0.0.3
-digest: sha256:b71733706139e7d27986d469205083e6d8862915362bad39904313678780dfac
-generated: "2022-12-05T11:44:21.361713+02:00"
+digest: sha256:b1aecab863c1ae312728b4529b9eedea7d6334fdc5cc129419e624d04b84ee41
+generated: "2023-02-01T16:51:42.428748+02:00"
