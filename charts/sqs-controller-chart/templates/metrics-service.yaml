@@ -1,14 +1,30 @@
+{{- if .Values.metrics.service.create }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "chart.fullname" . }}-controller-manager-metrics-service
+  name: {{ .Chart.Name | trimSuffix "-chart" | trunc 44 }}-controller-metrics
+  namespace: {{ .Release.Namespace }}
   labels:
-    control-plane: controller-manager
-  {{- include "chart.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "app.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+    k8s-app: {{ include "app.name" . }}
+    helm.sh/chart: {{ include "chart.name-version" . }}
+    control-plane: controller
 spec:
-  type: {{ .Values.metricsService.type }}
   selector:
-    control-plane: controller-manager
-  {{- include "chart.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "app.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
+    k8s-app: {{ include "app.name" . }}
+{{- range $key, $value := .Values.deployment.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+  type: {{ .Values.metrics.service.type }}
   ports:
-	{{- .Values.metricsService.ports | toYaml | nindent 2 -}}
+  - name: metricsport
+    port: 8080
+    targetPort: http
+    protocol: TCP
+{{- end }}
