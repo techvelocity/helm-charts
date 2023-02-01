@@ -47,7 +47,8 @@ secrets:
   authToken: replace-me
 
 aws:
-  region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
+  # default value. for environment creation, we use a namespace annotation to indicate the region
+  region: us-east-1
   creds:
     accessKey:
     secretKey:
@@ -60,11 +61,13 @@ velocity:
   apiUrl: ""
 
 tags:
-  cloudResources: false   # All cloud resources will be enabled if this is true
+  # All cloud resources will be enabled if this is true
+  cloudResources: false
 
 s3-chart:
   aws:
-    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
       secretName: aws-creds
       secretKey: credentials
@@ -72,7 +75,8 @@ s3-chart:
 
 dynamodb-chart:
   aws:
-    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
       secretName: aws-creds
       secretKey: credentials
@@ -81,7 +85,8 @@ dynamodb-chart:
 
 sqs-chart:
   aws:
-    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
       secretName: aws-creds
       secretKey: credentials
@@ -89,7 +94,8 @@ sqs-chart:
 
 ack-sns-controller:
   aws:
-    region: us-east-1 # default value. for environment creation, we use a namespace annotation to indicate the region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
       secretName: aws-creds
       secretKey: credentials
