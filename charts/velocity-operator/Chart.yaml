@@ -4,8 +4,8 @@ description: |-
   Spin up fully isolated, ephemeral environments in seconds.
   Develop code on your local machine and test it on a production-like environment.
 type: application
-version: 0.2.31
-appVersion: v1.6.0
+version: 0.2.32
+appVersion: v1.6.1
 # IMPORTANT: When upgrading the AWS ACK controller versions, make sure to update the `templates/crds` files
 # according to the new version CRDs.
 # The `fieldexports` and `adoptedresources` CRDs are defined under `templates/crds/aws`
@@ -24,10 +24,9 @@ dependencies:
     condition: cloudResources.dynamodb.enabled
     tags:
       - cloudResources
-  - name: sqs-controller-chart
-    # Velocity inhouse chart
+  - name: sqs-chart
     repository: "https://helm-charts.velocity.tech"
-    version: 0.0.6
+    version: 0.0.1
     condition: cloudResources.sqs.enabled
     tags:
       - cloudResources

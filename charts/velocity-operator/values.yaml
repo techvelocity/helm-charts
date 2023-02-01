@@ -47,51 +47,56 @@ secrets:
   authToken: replace-me
 
 aws:
-  region: &aws-region us-east-1
+  # default value. for environment creation, we use a namespace annotation to indicate the region
+  region: us-east-1
   creds:
     accessKey:
     secretKey:
 
-    k8sSecretName: &k8s-secret-name aws-creds
-    k8sSecretKeyName: &k8s-secret-key-name credentials
-    profile: &aws-profile default
+    k8sSecretName: aws-creds
+    k8sSecretKeyName: credentials
+    profile: default
 
 velocity:
   apiUrl: ""
 
 tags:
-  cloudResources: false   # All cloud resources will be enabled if this is true
+  # All cloud resources will be enabled if this is true
+  cloudResources: false
 
 s3-chart:
   aws:
-    region: *aws-region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
-      secretName: *k8s-secret-name
-      secretKey: *k8s-secret-key-name
-      profile: *aws-profile
+      secretName: aws-creds
+      secretKey: credentials
+      profile: default
 
 dynamodb-chart:
   aws:
-    region: *aws-region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
-      secretName: *k8s-secret-name
-      secretKey: *k8s-secret-key-name
-      profile: *aws-profile
+      secretName: aws-creds
+      secretKey: credentials
+      profile: default
 
 
-sqs-controller-chart:
-  fullnameOverride: sqs
+sqs-chart:
   aws:
-    region: *aws-region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
-      secretName: *k8s-secret-name
-      secretKey: *k8s-secret-key-name
-      profile: *aws-profile
+      secretName: aws-creds
+      secretKey: credentials
+      profile: default
 
 ack-sns-controller:
   aws:
-    region: *aws-region
+    # default value. for environment creation, we use a namespace annotation to indicate the region
+    region: us-east-1
     credentials:
-      secretName: *k8s-secret-name
-      secretKey: *k8s-secret-key-name
-      profile: *aws-profile
+      secretName: aws-creds
+      secretKey: credentials
+      profile: default
