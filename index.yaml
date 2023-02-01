@@ -68,6 +68,30 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/s3-chart-v0.1.5/s3-chart-v0.1.5.tgz
     version: v0.1.5
+  sqs-chart:
+  - apiVersion: v1
+    appVersion: v0.0.1
+    created: "2023-02-01T14:43:17.424037876Z"
+    description: A Helm chart for the ACK service controller for Amazon Simple Queue
+      Service (SQS)
+    digest: c1e617960c7172028cf149844abcf12dfb3f8bc36debc4db94fcb308332c0279
+    home: https://github.com/aws-controllers-k8s/sqs-controller
+    icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
+    keywords:
+    - aws
+    - kubernetes
+    - sqs
+    maintainers:
+    - name: ACK Admins
+      url: https://github.com/orgs/aws-controllers-k8s/teams/ack-admin
+    - name: SQS Admins
+      url: https://github.com/orgs/aws-controllers-k8s/teams/sqs-maintainer
+    name: sqs-chart
+    sources:
+    - https://github.com/aws-controllers-k8s/sqs-controller
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/sqs-chart-v0.0.1/sqs-chart-v0.0.1.tgz
+    version: v0.0.1
   sqs-controller-chart:
   - apiVersion: v2
     appVersion: 0.0.6
@@ -1169,4 +1193,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-registry-0.1.0/velocity-registry-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-23T09:52:43.292811815Z"
+generated: "2023-02-01T14:43:17.42409748Z"
