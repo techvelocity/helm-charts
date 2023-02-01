@@ -64,10 +64,6 @@ spec:
             value: {{ quote .Values.controllerManager.manager.env.dryRun }}
           - name: CHART_VERSION
             value: {{ quote .Chart.Version }}
-          - name: CLOUD_RESOURCES_ENABLED
-            value: {{ quote .Values.tags.cloudResources }}
-          - name: AWS_REGION
-            value: {{ required "A valid aws-region required!" .Values.aws.region }}
           {{- if .Values.tags.cloudResources }}
           - name: AWS_SHARED_CREDENTIALS_FILE
             value: {{ include "aws.credentials.path" . }}
@@ -76,6 +72,9 @@ spec:
           - name: VELOCITY_API_URL
             value: {{ quote .Values.velocity.apiUrl }}
           {{- end }}
+        envFrom:
+          - configMapRef:
+              name: {{ include "chart.fullname" . }}-config
         readinessProbe:
           httpGet:
             path: /readyz
