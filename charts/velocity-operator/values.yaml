@@ -12,11 +12,11 @@ controllerManager:
         memory: 64Mi
   manager:
     env:
-      dryRun: false
+      # NAME: value
     saImagePullSecrets: []
     image:
       repository: quay.io/velocity/velocity-operator
-#     tag: v0.0.7 use appVersion by default
+      # tag: v0.0.7 use appVersion by default
     resources:
       limits:
         cpu: 500m
@@ -25,6 +25,7 @@ controllerManager:
         cpu: 10m
         memory: 64Mi
   replicas: 1
+
 managerConfig:
   controllerManagerConfigYaml:
     health:
@@ -36,12 +37,13 @@ managerConfig:
       bindAddress: 127.0.0.1:8080
     webhook:
       port: 9443
+
 metricsService:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
   type: ClusterIP
 secrets:
   authToken: replace-me
@@ -81,7 +83,6 @@ dynamodb-chart:
       secretName: aws-creds
       secretKey: credentials
       profile: default
-
 
 sqs-chart:
   aws:

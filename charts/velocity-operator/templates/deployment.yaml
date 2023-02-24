@@ -5,6 +5,12 @@ metadata:
   labels:
     control-plane: controller-manager
   {{- include "chart.labels" . | nindent 4 }}
+  {{- with .Values.controllerManager.annotations }}
+  annotations:
+    {{- range $key, $val := . }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+  {{- end }}
 spec:
   replicas: {{ .Values.controllerManager.replicas }}
   selector:
@@ -45,8 +51,7 @@ spec:
         - --leader-elect
         command:
         - /manager
-        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag
-          | default .Chart.AppVersion }}
+        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag | default .Chart.AppVersion }}
         livenessProbe:
           httpGet:
             path: /healthz
@@ -60,8 +65,6 @@ spec:
               secretKeyRef:
                 name: {{ include "chart.fullname" . }}-manager-secret
                 key: authToken
-          - name: DRY_RUN
-            value: {{ quote .Values.controllerManager.manager.env.dryRun }}
           - name: CHART_VERSION
             value: {{ quote .Chart.Version }}
           {{- if .Values.tags.cloudResources }}
@@ -71,6 +74,10 @@ spec:
           {{- if ((.Values.velocity).apiUrl) }}
           - name: VELOCITY_API_URL
             value: {{ quote .Values.velocity.apiUrl }}
+          {{- end }}
+          {{- range $key, $val := .Values.controllerManager.manager.env }}
+          - name: {{ $key }}
+            value: {{ $val | quote }}
           {{- end }}
         envFrom:
           - configMapRef:
