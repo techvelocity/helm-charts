@@ -27,38 +27,20 @@ spec:
         checksum/secret: {{ include (print $.Template.BasePath "/manager-secrets.yaml") . | sha256sum }}
     spec:
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: {{ .Values.controllerManager.kubeRbacProxy.image.repository }}:{{ .Values.controllerManager.kubeRbacProxy.image.tag }}
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources: {{- toYaml .Values.controllerManager.kubeRbacProxy.resources | nindent
-          10 }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-      - args:
+      - name: manager
+        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag | default .Chart.AppVersion }}
+        args:
         - --health-probe-bind-address=:8081
         - --metrics-bind-address=127.0.0.1:8080
         - --leader-elect
         command:
         - /manager
-        image: {{ .Values.controllerManager.manager.image.repository }}:{{ .Values.controllerManager.manager.image.tag | default .Chart.AppVersion }}
         livenessProbe:
           httpGet:
             path: /healthz
             port: 8081
           initialDelaySeconds: 15
           periodSeconds: 20
-        name: manager
         env:
           - name: AUTH_TOKEN
             valueFrom:
@@ -70,10 +52,6 @@ spec:
           {{- if .Values.tags.cloudResources }}
           - name: AWS_SHARED_CREDENTIALS_FILE
             value: {{ include "aws.credentials.path" . }}
-          {{- end }}
-          {{- if ((.Values.velocity).apiUrl) }}
-          - name: VELOCITY_API_URL
-            value: {{ quote .Values.velocity.apiUrl }}
           {{- end }}
           {{- range $key, $val := .Values.controllerManager.manager.env }}
           - name: {{ $key }}
@@ -95,6 +73,23 @@ spec:
             mountPath: {{ include "aws.credentials.secret_mount_path" . }}
             readOnly: true
         {{- end }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      - name: kube-rbac-proxy
+        image: {{ .Values.controllerManager.kubeRbacProxy.image.repository }}:{{ .Values.controllerManager.kubeRbacProxy.image.tag }}
+        args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=0
+        ports:
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        resources: {{- toYaml .Values.controllerManager.kubeRbacProxy.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
