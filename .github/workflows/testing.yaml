@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: "3.9"
           check-latest: true
 
       - name: Set up chart-testing
@@ -37,12 +37,22 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --chart-dirs charts/velocity-operator --charts charts/velocity-operator --validate-maintainers=false --target-branch ${{ github.event.repository.default_branch }}
+        run: |
+          ct lint \
+            --chart-dirs charts/velocity-operator \
+            --charts charts/velocity-operator \
+            --validate-maintainers=false \
+            --target-branch ${{ github.event.repository.default_branch }}
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.4.0
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --upgrade --debug --chart-dirs charts/velocity-operator --charts charts/velocity-operator --helm-extra-set-args "--set controllerManager.manager.env.dryRun=true" --target-branch ${{ github.event.repository.default_branch }}
+        run: |
+          ct install --upgrade --debug \
+            --chart-dirs charts/velocity-operator \
+            --charts charts/velocity-operator \
+            --helm-extra-set-args "--set controllerManager.manager.env.DRY_RUN=true" \
+            --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'

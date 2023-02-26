@@ -5,18 +5,18 @@ controllerManager:
       tag: v0.13.0
     resources:
       limits:
-        cpu: 500m
-        memory: 128Mi
+        cpu: 1000m
+        memory: 1Gi
       requests:
-        cpu: 5m
-        memory: 64Mi
+        cpu: 250m
+        memory: 256Mi
   manager:
     env:
-      dryRun: false
+    # NAME: value
     saImagePullSecrets: []
     image:
       repository: quay.io/velocity/velocity-operator
-#     tag: v0.0.7 use appVersion by default
+      # tag: v0.0.7 use appVersion by default
     resources:
       limits:
         cpu: 500m
@@ -25,6 +25,10 @@ controllerManager:
         cpu: 10m
         memory: 64Mi
   replicas: 1
+
+rbac:
+  allowAll: false
+
 managerConfig:
   controllerManagerConfigYaml:
     health:
@@ -36,12 +40,13 @@ managerConfig:
       bindAddress: 127.0.0.1:8080
     webhook:
       port: 9443
+
 metricsService:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
   type: ClusterIP
 secrets:
   authToken: replace-me
@@ -56,9 +61,6 @@ aws:
     k8sSecretName: aws-creds
     k8sSecretKeyName: credentials
     profile: default
-
-velocity:
-  apiUrl: ""
 
 tags:
   # All cloud resources will be enabled if this is true
@@ -81,7 +83,6 @@ dynamodb-chart:
       secretName: aws-creds
       secretKey: credentials
       profile: default
-
 
 sqs-chart:
   aws:

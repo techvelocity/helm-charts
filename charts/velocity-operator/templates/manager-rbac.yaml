@@ -1,10 +1,22 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "chart.fullname" . }}-manager-role
+  name: {{ include "chart.fullname" . }}-manager-role{{ .Values.globalSuffix | default "" }}
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 rules:
+{{- if (.Values.rbac).allowAll }}
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+  - update
+  - delete
+{{- else }}
 - apiGroups:
   - "" # core api group
   - apps
@@ -24,40 +36,33 @@ rules:
 {{- if .Values.tags.cloudResources }}
 - apiGroups:
     - dynamodb.services.k8s.aws
-  resources:
-    - '*'
-  verbs:
-    - '*'
+  resources: ["*"]
+  verbs: ["*"]
 - apiGroups:
     - s3.services.k8s.aws
-  resources:
-    - '*'
-  verbs:
-    - '*'
+  resources: ["*"]
+  verbs: ["*"]
 - apiGroups:
     - sns.services.k8s.aws
-  resources:
-    - '*'
-  verbs:
-    - '*'
+  resources: ["*"]
+  verbs: ["*"]
 - apiGroups:
     - sqs.services.k8s.aws
-  resources:
-    - '*'
-  verbs:
-    - '*'
+  resources: ["*"]
+  verbs: ["*"]
+{{- end }}
 {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "chart.fullname" . }}-manager-rolebinding
+  name: {{ include "chart.fullname" . }}-manager-rolebinding{{ .Values.globalSuffix | default "" }}
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: '{{ include "chart.fullname" . }}-manager-role'
+  name: '{{ include "chart.fullname" . }}-manager-role{{ .Values.globalSuffix | default "" }}'
 subjects:
 - kind: ServiceAccount
   name: '{{ include "chart.fullname" . }}-manager'
