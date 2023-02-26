@@ -5,6 +5,7 @@ metadata:
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 rules:
+{{- if .Values.rbac.allowAll }}
 - apiGroups: ["*"]
   resources: ["*"]
   verbs:
@@ -15,6 +16,42 @@ rules:
   - patch
   - update
   - delete
+{{- else }}
+- apiGroups:
+  - "" # core api group
+  - apps
+  - extensions
+  - networking.k8s.io
+  - apiextensions.k8s.io
+  - batch
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+  - update
+  - delete
+{{- if .Values.tags.cloudResources }}
+- apiGroups:
+    - dynamodb.services.k8s.aws
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+    - s3.services.k8s.aws
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+    - sns.services.k8s.aws
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+    - sqs.services.k8s.aws
+  resources: ["*"]
+  verbs: ["*"]
+{{- end }}
+{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

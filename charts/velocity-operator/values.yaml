@@ -5,14 +5,14 @@ controllerManager:
       tag: v0.13.0
     resources:
       limits:
-        cpu: 500m
-        memory: 128Mi
+        cpu: 1000m
+        memory: 1Gi
       requests:
-        cpu: 5m
-        memory: 64Mi
+        cpu: 250m
+        memory: 256Mi
   manager:
     env:
-      # NAME: value
+    # NAME: value
     saImagePullSecrets: []
     image:
       repository: quay.io/velocity/velocity-operator
@@ -25,6 +25,9 @@ controllerManager:
         cpu: 10m
         memory: 64Mi
   replicas: 1
+
+rbac:
+  allowAll: false
 
 managerConfig:
   controllerManagerConfigYaml:
