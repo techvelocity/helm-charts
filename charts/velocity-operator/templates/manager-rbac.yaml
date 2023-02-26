@@ -5,7 +5,7 @@ metadata:
   labels:
   {{- include "chart.labels" . | nindent 4 }}
 rules:
-{{- if .Values.rbac.allowAll }}
+{{- if (.Values.rbac).allowAll }}
 - apiGroups: ["*"]
   resources: ["*"]
   verbs:
