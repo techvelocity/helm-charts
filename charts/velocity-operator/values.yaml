@@ -27,7 +27,7 @@ controllerManager:
   replicas: 1
 
 rbac:
-  allowAll: false
+  allowAll: true
 
 managerConfig:
   controllerManagerConfigYaml:
