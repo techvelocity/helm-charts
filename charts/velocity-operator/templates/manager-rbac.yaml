@@ -8,14 +8,7 @@ rules:
 {{- if (.Values.rbac).allowAll }}
 - apiGroups: ["*"]
   resources: ["*"]
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - patch
-  - update
-  - delete
+  verbs: ["*"]
 {{- else }}
 - apiGroups:
   - "" # core api group

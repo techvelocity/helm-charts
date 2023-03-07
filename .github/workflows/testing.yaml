@@ -39,8 +39,6 @@ jobs:
       - name: Run chart-testing (lint)
         run: |
           ct lint \
-            --chart-dirs charts/velocity-operator \
-            --charts charts/velocity-operator \
             --validate-maintainers=false \
             --target-branch ${{ github.event.repository.default_branch }}
 
@@ -51,8 +49,6 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           ct install --upgrade --debug \
-            --chart-dirs charts/velocity-operator \
-            --charts charts/velocity-operator \
             --helm-extra-set-args "--set controllerManager.manager.env.DRY_RUN=true" \
             --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'
