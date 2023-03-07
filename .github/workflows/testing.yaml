@@ -40,7 +40,6 @@ jobs:
         run: |
           ct lint \
             --chart-dirs ./charts/velocity-operator \
-            --charts ./charts/velocity-operator \
             --check-version-increment \
             --validate-maintainers=false \
             --target-branch ${{ github.event.repository.default_branch }}
