@@ -99,7 +99,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 65532
-      {{ - end }}
+      {{- end }}
       serviceAccountName: {{ include "chart.fullname" . }}-manager
       terminationGracePeriodSeconds: 10
       {{- if .Values.tags.cloudResources }}
