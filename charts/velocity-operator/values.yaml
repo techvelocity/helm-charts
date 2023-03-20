@@ -25,6 +25,7 @@ controllerManager:
         cpu: 500m
         memory: 512Mi
   replicas: 1
+  runAsRoot: false
 
 rbac:
   allowAll: true

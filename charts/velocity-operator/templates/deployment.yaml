@@ -95,9 +95,11 @@ spec:
           capabilities:
             drop:
             - ALL
+      {{- if not .Values.controllerManager.runAsRoot }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 65532
+      {{ - end }}
       serviceAccountName: {{ include "chart.fullname" . }}-manager
       terminationGracePeriodSeconds: 10
       {{- if .Values.tags.cloudResources }}
