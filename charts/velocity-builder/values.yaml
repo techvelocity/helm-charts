@@ -1,0 +1,59 @@
+replicaCount: 1
+
+image:
+  # -- Image name
+  repository: moby/buildkit
+  # -- Pull policy
+  pullPolicy: IfNotPresent
+  # -- Image tag
+  tag: ""
+
+# -- Run rootless mode, https://github.com/moby/buildkit/blob/master/docs/rootless.md
+rootless: false
+
+# -- Enable debug logging
+debugLog: true
+
+gcKeepStorageBytes: 6442450944 # 10Gi - 40% = 6Gi in bytes
+
+# -- Pod annotations
+podAnnotations: {}
+
+cacheDuration: 172800 # 48 Hours
+
+persistence:
+  # -- Enable persistence using PVC
+  enabled: true
+  # -- PVC storage class
+  storageClass: "standard"
+  # -- PVC access mode
+  accessMode: ReadWriteOnce
+  # -- PVC storage size
+  size: 10Gi
+
+# -- Resource definitions
+resources:
+   limits:
+     memory: 3Gi
+   requests:
+     cpu: 500m
+     memory: 1Gi
+
+# -- Node selector
+nodeSelector: {}
+
+# -- Tolerations
+tolerations: []
+
+# -- Affinity
+affinity: {}
+
+tls:
+  # -- Enable mTLS, refer to https://github.com/moby/buildkit/tree/master/examples/kubernetes#deployment--service
+  enabled: false
+  # -- Base64 encoded cert.pem
+  cert:
+  # -- Base64 encoded key.pem
+  certKey:
+  # -- Base64 encoded ca.pem
+  certCA:

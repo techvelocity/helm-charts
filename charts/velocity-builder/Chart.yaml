@@ -1,0 +1,12 @@
+annotations:
+  artifacthub.io/links: |
+    - name: source
+      url: https://github.com/techvelocity/helm-charts
+    - name: support
+      url: https://github.com/techvelocity/helm-charts/issues
+apiVersion: v2
+appVersion: v0.11.6
+description: Helm chart for velocity builder (based on buildkit)
+name: velocity-builder
+type: application
+version: 0.1.0

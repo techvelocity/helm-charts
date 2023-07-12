@@ -1,0 +1,42 @@
+debug = {{ .Values.debugLog }}
+
+# root is where all buildkit state is stored.
+root = "/var/lib/buildkit"
+
+# config for build history API that stores information about completed build commands
+[history]
+    # maxAge is the maximum age of history entries to keep, in seconds.
+    maxAge = {{ .Values.cacheDuration }}
+    # maxEntries is the maximum number of history entries to keep.
+    maxEntries = 50
+
+{{ if .Values.insecureRegistry }}
+[registry."{{ .Values.insecureRegistryHost }}"]
+    http = true
+    insecure = true
+{{- end }}
+
+[worker.oci]
+    enabled = true
+
+    rootless = {{ .Values.rootless }} # see docs/rootless.md for the details on rootless mode.
+    # Whether run subprocesses in main pid namespace or not, this is useful for
+    # running rootless buildkit inside a container.
+    noProcessSandbox = false
+
+    # See https://www.sliceofexperiments.com/p/a-comprehensive-guide-for-the-fastest for more info
+    gc = true
+    gckeepstorage = {{ .Values.gcKeepStorageBytes }}
+    # limit the number of parallel build steps that can run at the same time
+    max-parallelism = 4
+    # maintain a pool of reusable CNI network namespaces to amortize the overhead
+    # of allocating and releasing the namespaces
+    cniPoolSize = 16
+
+    [[worker.oci.gcpolicy]]
+        keepBytes = {{ .Values.gcKeepStorageBytes }}
+        keepDuration = {{ .Values.cacheDuration }}
+        filters = [ "type==source.local", "type==exec.cachemount", "type==source.git.checkout"]
+    [[worker.oci.gcpolicy]]
+        all = true
+        keepBytes = {{ .Values.gcKeepStorageBytes }}
