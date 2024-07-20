@@ -564,4 +564,3 @@ metrics:
     ##   prometheus: my-prometheus
     ##
     selector: {}
-
