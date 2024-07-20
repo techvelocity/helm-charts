@@ -48,7 +48,7 @@ jobs:
 
       - name: Run chart-testing (install)
         run: |
-          ct install --upgrade --debug --github-groups \
+          ct install --upgrade --debug \
             --helm-extra-args '--debug' \
             --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'
