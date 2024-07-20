@@ -24,4 +24,3 @@ In order to replicate the container startup scripts execute this command:
 
 {{- include "common.warnings.rollingTag" .Values.operator.image }}
 {{- include "operator.validateValues" . }}
-{{- include "common.warnings.modifiedImages" (dict "images" (list .Values.operator.image) "context" $) }}
