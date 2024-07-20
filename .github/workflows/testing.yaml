@@ -50,5 +50,6 @@ jobs:
         run: |
           ct install --upgrade --debug --github-groups \
             --helm-extra-args '--debug' \
+            --helm-extra-set-args '--set=service.type=NodePort' \
             --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'
