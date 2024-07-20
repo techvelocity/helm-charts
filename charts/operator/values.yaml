@@ -79,9 +79,9 @@ operator:
   ## @param operator.image.debug Enable operator image debug mode
   ##
   image:
-    registry: ""
-    repository: ""
-    tag: ""
+    registry: "" # ghcr.io
+    repository: "" # techvelocity/operator
+    tag: "" # .Chart.AppVersion
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
