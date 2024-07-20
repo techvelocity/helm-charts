@@ -49,6 +49,5 @@ jobs:
       - name: Run chart-testing (install)
         run: |
           ct install --upgrade --debug \
-            --helm-extra-set-args "--set controllerManager.manager.env.DRY_RUN=true" \
             --target-branch ${{ github.event.repository.default_branch }}
         if: steps.list-changed.outputs.changed == 'true'
