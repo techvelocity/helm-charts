@@ -20,10 +20,6 @@ In order to replicate the container startup scripts execute this command:
 
     %%ENTRYPOINT and CMD from main container%%
 
-{{- else }}
-
-{{- /* %%Instructions to access the application depending on the serviceType and other considerations%% */ }}
-
 {{- end }}
 
 {{- include "common.warnings.rollingTag" .Values.operator.image }}
