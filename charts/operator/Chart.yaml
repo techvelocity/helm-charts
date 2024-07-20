@@ -1,0 +1,23 @@
+apiVersion: v2
+type: application
+version: 0.1.0-rc
+appVersion: 0.1.0-rc # used as the default value for .Values.operator.image.tag
+name: operator-chart
+description: |
+  TODO description
+home: https://velocity.tech
+# icon: ''
+keywords: []
+maintainers:
+  - name: Velocity
+    url: https://velocity.tech
+dependencies:
+  - name: common
+    repository: oci://registry-1.docker.io/bitnamicharts
+    tags:
+      - bitnami-common
+    version: 2.20.3
+sources:
+  - https://github.com/techvelocity/helm-charts/tree/main/charts/operator
+  - https://github.com/techvelocity/starlink/tree/main/operator
+  - https://github.com/bitnami/charts/tree/main/bitnami/common
