@@ -18,7 +18,7 @@ Access the pod you want to debug by executing
 
 In order to replicate the container startup scripts execute this command:
 
-    %%ENTRYPOINT and CMD from main container%%
+    "/manager"
 
 {{- end }}
 

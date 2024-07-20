@@ -41,7 +41,7 @@ fullnameOverride: ""
 # TODO(dror): Set namespace inside the chart
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
-namespaceOverride: velocity-system
+namespaceOverride: ""
 ## @param commonLabels Labels to add to all deployed objects
 ##
 commonLabels: {}
