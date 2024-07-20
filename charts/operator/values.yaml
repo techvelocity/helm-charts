@@ -70,18 +70,19 @@ diagnosticMode:
 ##
 operator:
   ## operator image
-  ## @param operator.image.registry [default: quay.io] operator image registry
-  ## @param operator.image.repository [default: velocity/velocity-operator] operator image repository
-  ## @skip operator.image.tag operator image tag (immutable tags are recommended)
+  ## operator image
+  ## @param operator.image.registry [default: ghcr.io] operator image registry
+  ## @param operator.image.repository [default: techvelocity/operator] operator image repository
+  ## @skip operator.image.tag operator image tag [default: .Chart.AppVersion] (immutable tags are recommended)
   ## @param operator.image.digest operator image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag image tag (immutable tags are recommended)
   ## @param operator.image.pullPolicy operator image pull policy
   ## @param operator.image.pullSecrets operator image pull secrets
   ## @param operator.image.debug Enable operator image debug mode
   ##
   image:
-    registry: "" # ghcr.io
-    repository: "" # techvelocity/operator
-    tag: "" # .Chart.AppVersion
+    registry: ""
+    repository: ""
+    tag: ""
     digest: ""
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
