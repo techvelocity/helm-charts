@@ -1,8 +1,8 @@
 apiVersion: v2
 type: application
-version: 0.1.0-dev
+version: 0.1.0-rc1
 # used as the default value for .Values.operator.image.tag
-appVersion: 0.1.0-dev
+appVersion: 0.1.0-rc1
 name: operator
 description: |
   TODO description
