@@ -38,7 +38,6 @@ nameOverride: ""
 ## @param fullnameOverride String to fully override common.names.fullname
 ##
 fullnameOverride: ""
-# TODO(dror): Set namespace inside the chart
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
