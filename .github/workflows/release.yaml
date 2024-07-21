@@ -6,6 +6,10 @@ on:
       - main
       - fix/VELO-72-*
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -34,4 +38,4 @@ jobs:
         with:
           pages_branch: gh-pages-v2
         env:
-          CR_TOKEN: "${{ secrets.TECHVELOCITY_CI_GITHUB_TOKEN_HELM_CHARTS }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
