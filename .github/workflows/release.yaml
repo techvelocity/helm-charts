@@ -33,4 +33,4 @@ jobs:
         with:
           pages_branch: gh-pages-v2
         env:
-          CR_TOKEN: "${{ secrets.TECHVELOCITY_CI_GITHUB_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
