@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -14,10 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Configure Git
-      #   run: |
-      #     git config user.name "$GITHUB_ACTOR"
-      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Configure Git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Install Helm
         uses: azure/setup-helm@v3
@@ -33,4 +37,4 @@ jobs:
         with:
           pages_branch: gh-pages-v2
         env:
-          CR_TOKEN: "${{ secrets.TECHVELOCITY_CI_GITHUB_TOKEN_HELM_CHARTS }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
