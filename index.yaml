@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  operator:
+  - apiVersion: v2
+    appVersion: 0.1.0-rc1
+    created: "2024-07-21T11:38:48.299293005Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.20.3
+    description: 'TODO description '
+    digest: a8382c6029ab7309ea79f68a86698f900279dc50f4262d5adc63b2efaa1f1af3
+    home: https://velocity.tech
+    maintainers:
+    - name: Velocity
+      url: https://velocity.tech
+    name: operator
+    sources:
+    - https://github.com/techvelocity/helm-charts/tree/main/charts/operator
+    - https://github.com/techvelocity/starlink/tree/main/operator
+    - https://github.com/bitnami/charts/tree/main/bitnami/common
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/operator-0.1.0-rc2/operator-0.1.0-rc2.tgz
+    version: 0.1.0-rc2
+generated: "2024-07-21T11:38:48.299305358Z"
