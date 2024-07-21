@@ -22,13 +22,15 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
-          version: v3.10.0
+          version: v3.15.2
 
       - name: Helm Deps
         run: |
           helm repo add charts https://helm-charts.velocity.tech
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.1
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          pages_branch: gh-pages-v2
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
