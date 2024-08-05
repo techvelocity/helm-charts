@@ -44,6 +44,31 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/dynamodb-chart-v0.1.7/dynamodb-chart-v0.1.7.tgz
     version: v0.1.7
+  operator:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2024-08-05T10:34:59.237183091Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      tags:
+      - bitnami-common
+      version: 2.20.3
+    description: 'A Helm chart for the operator that instruments your k8s cluster '
+    digest: 6268eb676faae30ceed5900ce846b02f8a437a1ab04119b1dd445db7cac828b2
+    home: https://velocity.tech
+    maintainers:
+    - name: Velocity
+      url: https://velocity.tech
+    name: operator
+    sources:
+    - https://github.com/techvelocity/starlink/tree/main/operator
+    - https://github.com/techvelocity/helm-charts/tree/main/charts/operator
+    - https://github.com/bitnami/charts/tree/main/bitnami/common
+    type: application
+    urls:
+    - https://github.com/techvelocity/helm-charts/releases/download/operator-0.1.1/operator-0.1.1.tgz
+    version: 0.1.1
   s3-chart:
   - apiVersion: v1
     appVersion: v0.1.5
@@ -1697,4 +1722,4 @@ entries:
     urls:
     - https://github.com/techvelocity/helm-charts/releases/download/velocity-registry-0.1.0/velocity-registry-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-28T14:27:31.956789504Z"
+generated: "2024-08-05T10:34:59.237296282Z"
