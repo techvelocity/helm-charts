@@ -1,5 +1,3 @@
-
-
 {{ if .Values.rbac.create }}
 kind: Role
 apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
@@ -11,8 +9,8 @@ metadata:
   {{- if .Values.commonAnnotations }}
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
-rules: []
+rules: [ ]
   {{- if .Values.rbac.rules }}
   {{- include "common.tplvalues.render" ( dict "value" .Values.rbac.rules "context" $ ) | nindent 2 }}
   {{- end }}
-{{- end }}
+  {{- end }}

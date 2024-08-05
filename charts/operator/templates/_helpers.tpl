@@ -81,3 +81,25 @@ Compile all warnings into a single message.
 {{- fail "admissionWebhook.autoSelfSignedCertificate is enabled, but so does admissionWebhook.existingCertificateSecretName. Only one of them is allowed at a time" -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "sidecar.image" -}}
+{{- if .Values.sidecar -}}
+{{- .Values.sidecar.image | default "ghcr.io/techvelocity/velocity-sensor:0.1.1" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "sidecar.secretName" -}}
+{{- if and .Values.sidecar .Values.sidecar.secretName -}}
+{{- .Values.sidecar.secretName -}}
+{{- else -}}
+{{ template "common.names.fullname" . }}
+{{- end -}}
+{{- end -}}
+
+{{- define "sidecar.configmapName" -}}
+{{- if and .Values.sidecar .Values.sidecar.configmapName -}}
+{{- .Values.sidecar.configmapName -}}
+{{- else -}}
+{{ template "common.names.fullname" . }}
+{{- end -}}
+{{- end -}}

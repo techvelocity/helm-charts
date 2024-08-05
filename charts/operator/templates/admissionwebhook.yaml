@@ -21,12 +21,15 @@ webhooks:
         port: 9443
     failurePolicy: Ignore
     rules:
-    - apiGroups:
-      - ""
-      apiVersions:
-      - v1
-      operations:
-      - CREATE
-      resources:
-      - pods
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        resources:
+          - pods
+        operations:
+          - CREATE
+    objectSelector: # TODO(dror): this is taken from the operator codebase, under pkg/api/labels.go. We should automate this change if it's frequent
+      matchLabels:
+        alpha.velocity.tech/mutate-pod: "enabled"
     sideEffects: None
