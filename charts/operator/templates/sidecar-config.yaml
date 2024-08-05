@@ -1,0 +1,189 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sidecar.configmapName" . }}
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- if or .Values.service.annotations .Values.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" (dict "values" (list .Values.service.annotations .Values.commonAnnotations) "context" .) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $ ) | nindent 4 }}
+  {{- end }}
+data:
+  telegraf.conf: |
+    [agent]
+    interval = "3s"
+    flush_interval = "3s"
+    flush_jitter = "0s"
+    collection_jitter = "0s"
+    hostname = "$HOSTNAME"
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    omit_hostname = false
+    precision = ""
+    round_interval = true
+    debug = false
+    quiet = false
+
+    [global_tags]
+    nodename = "${ANNOTATE_KUBERNETES_NODE_NAME}"
+
+    # inputs
+
+    [[inputs.diskio]]
+    [[inputs.kernel]]
+    collect = ["ksm", "psi"]
+
+    [[inputs.mem]]
+    [[inputs.net]]
+    ignore_protocol_stats = true
+    [[inputs.processes]]
+    [[inputs.swap]]
+    [[inputs.system]]
+    [[inputs.cpu]]
+    percpu = true # false
+    totalcpu = true
+    collect_cpu_time = true # false
+    #report_active = true
+    core_tags = true
+    [[inputs.disk]]
+    ignore_fs = [
+    "tmpfs",
+    "devtmpfs",
+    "devfs",
+    "iso9660",
+    "overlay",
+    "aufs",
+    "squashfs"
+    ]
+
+    [[inputs.amd_rocm_smi]]
+    startup_error_behavior = "ignore"
+
+    [[inputs.nvidia_smi]]
+    startup_error_behavior = "ignore"
+
+    [[inputs.procstat]]
+    pattern = "stress-ng"
+
+    [[inputs.nstat]]
+
+    [[inputs.netstat]]
+
+    [[inputs.socketstat]]
+
+    [[inputs.ethtool]]
+    down_interfaces = "skip"
+
+    [[inputs.internal]]
+
+    #[[inputs.mdstat]]
+
+    [[inputs.linux_sysctl_fs]]
+
+    #[[inputs.linux_cpu]]
+    #metrics = ["cpufreq", "thermal"]
+
+    [[inputs.kernel_vmstat]]
+
+    [[inputs.interrupts]]
+    cpu_as_tag = true
+
+    [[inputs.nfsclient]]
+    fullstat = true
+
+    # outputs
+
+    [[outputs.file]]
+    files = ["stdout"]
+
+    # Publishes metrics to a postgresql database
+    # official plugin docs: https://github.com/influxdata/telegraf/tree/master/plugins/outputs/postgresql#configuration
+    [[outputs.postgresql]]
+    startup_error_behavior = "ignore"
+    ## Specify connection address via the standard libpq connection string:
+    ##   host=... user=... password=... sslmode=... dbname=...
+    ## Or a URL:
+    ##   postgres://[user[:password]]@localhost[/dbname]?sslmode=[disable|verify-ca|verify-full]
+    ## See https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
+    ##
+    ## All connection parameters are optional. Environment vars are also supported.
+    ## e.g. PGPASSWORD, PGHOST, PGUSER, PGDATABASE
+    ## All supported vars can be found here:
+    ##  https://www.postgresql.org/docs/current/libpq-envars.html
+    ##
+    ## Non-standard parameters:
+    ##   pool_max_conns (default: 1) - Maximum size of connection pool for parallel (per-batch per-table) inserts.
+    ##   pool_min_conns (default: 0) - Minimum size of connection pool.
+    ##   pool_max_conn_lifetime (default: 0s) - Maximum age of a connection before closing.
+    ##   pool_max_conn_idle_time (default: 0s) - Maximum idle time of a connection before closing.
+    ##   pool_health_check_period (default: 0s) - Duration between health checks on idle connections.
+    # connection = ""
+
+    ## Postgres schema to use.
+    schema = "${PGSCHEMA}"
+
+    ## Store tags as foreign keys in the metrics table. Default is false.
+    # tags_as_foreign_keys = false
+
+    ## Suffix to append to table name (measurement name) for the foreign tag table.
+    # tag_table_suffix = "_tag"
+
+    ## Deny inserting metrics if the foreign tag can't be inserted.
+    # foreign_tag_constraint = false
+
+    ## Store all tags as a JSONB object in a single 'tags' column.
+    # tags_as_jsonb = false
+
+    ## Store all fields as a JSONB object in a single 'fields' column.
+    # fields_as_jsonb = false
+
+    ## Name of the timestamp column
+    ## NOTE: Some tools (e.g. Grafana) require the default name so be careful!
+    # timestamp_column_name = "time"
+
+    ## Type of the timestamp column
+    ## Currently, "timestamp without time zone" and "timestamp with time zone"
+    ## are supported
+    # timestamp_column_type = "timestamp without time zone"
+
+    ## Templated statements to execute when creating a new table.
+    # create_templates = [
+    #   '''CREATE TABLE {{ .table }} ({{ .columns }})''',
+    # ]
+
+    ## Templated statements to execute when adding columns to a table.
+    ## Set to an empty list to disable. Points containing tags for which there is no column will be skipped. Points
+    ## containing fields for which there is no column will have the field omitted.
+    # add_column_templates = [
+    #   '''ALTER TABLE {{ .table }} ADD COLUMN IF NOT EXISTS {{ .columns|join ", ADD COLUMN IF NOT EXISTS " }}''',
+    # ]
+
+    ## Templated statements to execute when creating a new tag table.
+    # tag_table_create_templates = [
+    #   '''CREATE TABLE {{ .table }} ({{ .columns }}, PRIMARY KEY (tag_id))''',
+    # ]
+
+    ## Templated statements to execute when adding columns to a tag table.
+    ## Set to an empty list to disable. Points containing tags for which there is no column will be skipped.
+    # tag_table_add_column_templates = [
+    #   '''ALTER TABLE {{ .table }} ADD COLUMN IF NOT EXISTS {{ .columns|join ", ADD COLUMN IF NOT EXISTS " }}''',
+    # ]
+
+    ## The postgres data type to use for storing unsigned 64-bit integer values (Postgres does not have a native
+    ## unsigned 64-bit integer type).
+    ## The value can be one of:
+    ##   numeric - Uses the PostgreSQL "numeric" data type.
+    ##   uint8 - Requires pguint extension (https://github.com/petere/pguint)
+    # uint64_type = "numeric"
+
+    ## When using pool_max_conns>1, and a temporary error occurs, the query is retried with an incremental backoff. This
+    ## controls the maximum backoff duration.
+    # retry_max_backoff = "15s"
+
+    ## Approximate number of tag IDs to store in in-memory cache (when using tags_as_foreign_keys).
+    ## This is an optimization to skip inserting known tag IDs.
+    ## Each entry consumes approximately 34 bytes of memory.
+    # tag_cache_size = 100000
+
+    ## Enable & set the log level for the Postgres driver.
+    # log_level = "warn" # trace, debug, info, warn, error, none

@@ -1,11 +1,11 @@
 apiVersion: v2
 type: application
-version: 0.1.0-rc2
+version: 0.1.1
 # used as the default value for .Values.operator.image.tag
-appVersion: 0.1.0-rc1
+appVersion: 0.1.1
 name: operator
 description: |
-  TODO description
+  A Helm chart for the operator that instruments your k8s cluster
 home: https://velocity.tech
 # icon: ''
 keywords: []
@@ -19,6 +19,6 @@ dependencies:
       - bitnami-common
     version: 2.20.3
 sources:
-  - https://github.com/techvelocity/helm-charts/tree/main/charts/operator
   - https://github.com/techvelocity/starlink/tree/main/operator
+  - https://github.com/techvelocity/helm-charts/tree/main/charts/operator
   - https://github.com/bitnami/charts/tree/main/bitnami/common

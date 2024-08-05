@@ -38,7 +38,6 @@ nameOverride: ""
 ## @param fullnameOverride String to fully override common.names.fullname
 ##
 fullnameOverride: ""
-# TODO(dror): Set namespace inside the chart
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
@@ -65,6 +64,16 @@ diagnosticMode:
     - sleep
   args:
     - infinity
+
+## @section sidecar Parameters
+##
+sidecar:
+  ## @param sidecar.image [default: ghcr.io/techvelocity/velocity-sensor:0.1.1] velocity sidecar image
+  image: ""
+  ## @param sidecar.secretName velocity sidecar secret name
+  secretName: ""
+  ## @param sidecar.configmapName velocity sidecar configmap name
+  configmapName: ""
 
 ## @section operator Parameters
 ##
